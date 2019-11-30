@@ -6,6 +6,7 @@ import {
 
 import Home from '../screens/Home';
 import Setting from '../screens/Setting';
+import Detail from '../screens/Detail';
 
 import { HeaderSearch } from '../components';
 
@@ -17,7 +18,13 @@ export default createStackNavigator(
         header: () => <HeaderSearch />
       }
     },
-    Setting
+    Setting,
+    Detail: {
+      screen: Detail,
+      navigationOptions: {
+        header: null
+      }
+    }
   },
   {
     transitionConfig: () => ({

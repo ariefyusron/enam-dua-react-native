@@ -1,157 +1,86 @@
 import React, { Component } from 'react';
-import {
-  View,
-  Text,
-  Image,
-  TouchableOpacity,
-  FlatList,
-  Alert,
-  TextInput,
-  ScrollView,
-  Keyboard,
-  SafeAreaView
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { View, Text, FlatList, Image, TouchableOpacity } from 'react-native';
 import PropTypes from 'prop-types';
-import { withNavigationFocus } from 'react-navigation';
-import { connect } from 'react-redux';
 
-import I18n from '../../I18n';
-import { addData, deleteData } from '../../redux/actions';
-import { KeyboardAvoidingView } from '../../components';
-import { LOGO } from '../../configs';
 import styles from './styles';
 
 class Home extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      input: ''
+      data: [
+        {
+          image:
+            'https://doyanresep.com/wp-content/uploads/2016/06/resep-soto-lamongan-1.jpg',
+          title: 'Soto',
+          reviews: 0,
+          star: 1
+        },
+        {
+          image:
+            'https://doyanresep.com/wp-content/uploads/2016/06/resep-soto-lamongan-1.jpg',
+          title: 'Soto',
+          reviews: 0,
+          star: 1
+        },
+        {
+          image:
+            'https://doyanresep.com/wp-content/uploads/2016/06/resep-soto-lamongan-1.jpg',
+          title: 'Soto',
+          reviews: 0,
+          star: 1
+        },
+        {
+          image:
+            'https://doyanresep.com/wp-content/uploads/2016/06/resep-soto-lamongan-1.jpg',
+          title: 'Soto',
+          reviews: 0,
+          star: 1
+        },
+        {
+          image:
+            'https://doyanresep.com/wp-content/uploads/2016/06/resep-soto-lamongan-1.jpg',
+          title: 'Soto',
+          reviews: 0,
+          star: 1
+        }
+      ]
     };
   }
 
-  onClickTrash(item) {
-    Alert.alert(I18n.t('delete'), I18n.t('youSure'), [
-      { text: I18n.t('no') },
-      { text: I18n.t('yes'), onPress: () => this.deleteData(item) }
-    ]);
-  }
-
-  deleteData(item) {
-    this.props.deleteData(item);
-  }
-
-  async addData() {
-    await this.props.addData(this.state.input);
-    this.setState({ input: '' });
-    Keyboard.dismiss();
-  }
-
-  _renderItem = ({ item }) => (
+  renderItem = ({ item }) => (
     <View style={styles.row}>
-      <Text>{item}</Text>
-      <TouchableOpacity onPress={() => this.onClickTrash(item)}>
-        <Icon name="delete" size={20} color="#d63031" />
+      <TouchableOpacity
+        activeOpacity={1}
+        onPress={() => this.props.navigation.navigate('Detail')}>
+        <Image source={{ uri: item.image }} style={styles.image} />
+        <View style={styles.desc}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text>{item.reviews} Reviews</Text>
+          <Text>{item.star} Stars</Text>
+        </View>
       </TouchableOpacity>
     </View>
   );
 
-  _renderEmptyItem = () => (
-    <View style={styles.wrapEmptyData}>
-      <Text>{I18n.t('empty')}</Text>
-    </View>
-  );
-
   render() {
+    const { data } = this.state;
     return (
-      <SafeAreaView style={styles.container}>
-        <View style={styles.container}>
-          <View style={styles.engine}>
-            <Text>{I18n.t('language')}</Text>
-            <View style={styles.wrapAuthor}>
-              <Text>
-                {`Hermes: ${
-                  global.HermesInternal == null ? I18n.t('off') : I18n.t('on')
-                }`}
-              </Text>
-              <Text>Arief Yusron</Text>
-            </View>
-          </View>
-          <KeyboardAvoidingView>
-            <ScrollView
-              style={styles.scrollView}
-              showsVerticalScrollIndicator={false}
-              keyboardShouldPersistTaps="handled">
-              <View style={styles.wrapImage}>
-                <Image source={LOGO} style={styles.image} />
-              </View>
-              <View style={styles.wrapButtonIcon}>
-                <TouchableOpacity
-                  style={styles.buttonIcon}
-                  onPress={() => this.props.navigation.navigate('Setting')}>
-                  <Icon name="settings" size={30} />
-                  <Text>{I18n.t('setting')}</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={styles.wrapContent}>
-                <View style={styles.content} elevation={5}>
-                  <View style={styles.header}>
-                    <TextInput
-                      placeholder={I18n.t('typeHere')}
-                      style={styles.input}
-                      onChangeText={text => this.setState({ input: text })}
-                      value={this.state.input}
-                    />
-                    <TouchableOpacity
-                      onPress={() => this.addData()}
-                      disabled={this.state.input === ''}>
-                      <Icon
-                        name="add-circle-outline"
-                        size={20}
-                        color={
-                          this.state.input === ''
-                            ? 'rgba(0, 184, 148, 0.3)'
-                            : '#00b894'
-                        }
-                      />
-                    </TouchableOpacity>
-                  </View>
-                  <View style={styles.body}>
-                    <FlatList
-                      data={this.props.home.data}
-                      extraData={I18n.t('empty')}
-                      keyExtractor={(item, index) => index.toString()}
-                      renderItem={this._renderItem}
-                      ListEmptyComponent={this._renderEmptyItem}
-                    />
-                  </View>
-                </View>
-              </View>
-            </ScrollView>
-          </KeyboardAvoidingView>
-        </View>
-      </SafeAreaView>
+      <View style={styles.container}>
+        <FlatList
+          data={data}
+          numColumns={2}
+          style={styles.flatList}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={this.renderItem}
+        />
+      </View>
     );
   }
 }
 
 Home.propTypes = {
-  home: PropTypes.object.isRequired,
-  addData: PropTypes.func.isRequired,
-  deleteData: PropTypes.func.isRequired,
   navigation: PropTypes.object.isRequired
 };
 
-const mapStateToProps = state => ({
-  home: state.home
-});
-
-const mapDispatchToProps = {
-  addData,
-  deleteData
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(withNavigationFocus(Home));
+export default Home;

@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: color.main
   },
   wrapSearch: {
-    paddingHorizontal: 15,
+    paddingHorizontal: 20,
     paddingVertical: 10
   },
   wrapTextInput: {
