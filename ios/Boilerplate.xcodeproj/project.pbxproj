@@ -194,7 +194,6 @@
 				7F740F45484A3C02B4C02280 /* Pods-BoilerplateTests.debug.xcconfig */,
 				F12806D84BA51159AADCF008 /* Pods-BoilerplateTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -309,6 +308,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 			);
