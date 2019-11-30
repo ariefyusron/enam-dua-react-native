@@ -1,5 +1,6 @@
 export const ADD_DATA = 'ADD_DATA';
 export const DELETE_DATA = 'DELETE_DATA';
+export const HANDLE_SEARCH = 'HANDLE_SEARCH';
 
 export const addData = data => dispatch => {
   dispatch({ type: ADD_DATA, payload: data });
@@ -7,4 +8,8 @@ export const addData = data => dispatch => {
 
 export const deleteData = data => dispatch => {
   dispatch({ type: DELETE_DATA, payload: data });
+};
+
+export const handleSearch = keyword => dispatch => {
+  dispatch({ type: HANDLE_SEARCH, payload: keyword });
 };

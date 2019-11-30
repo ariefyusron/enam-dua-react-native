@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   createStackNavigator,
   StackViewTransitionConfigs
@@ -6,12 +7,14 @@ import {
 import Home from '../screens/Home';
 import Setting from '../screens/Setting';
 
+import { HeaderSearch } from '../components';
+
 export default createStackNavigator(
   {
     Home: {
       screen: Home,
       navigationOptions: {
-        header: null
+        header: () => <HeaderSearch />
       }
     },
     Setting
