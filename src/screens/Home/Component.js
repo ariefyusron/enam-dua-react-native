@@ -70,6 +70,7 @@ class Home extends Component {
     return (
       <View style={styles.container}>
         <FlatList
+          keyboardShouldPersistTaps="handled"
           data={data}
           numColumns={2}
           style={styles.flatList}
