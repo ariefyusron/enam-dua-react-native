@@ -52,7 +52,9 @@ class Home extends Component {
     <View style={styles.row}>
       <TouchableOpacity
         activeOpacity={1}
-        onPress={() => this.props.navigation.navigate('Detail')}>
+        onPress={() =>
+          this.props.navigation.navigate('Detail', { title: item.title })
+        }>
         <Image source={{ uri: item.image }} style={styles.image} />
         <View style={styles.desc}>
           <Text style={styles.title}>{item.title}</Text>

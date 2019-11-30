@@ -5,28 +5,27 @@ import {
 } from 'react-navigation-stack';
 
 import Home from '../screens/Home';
-import Setting from '../screens/Setting';
 import Detail from '../screens/Detail';
 
-import { HeaderSearch } from '../components';
+import { HeaderSearch, Header } from '../components';
 
 export default createStackNavigator(
   {
     Home: {
       screen: Home,
       navigationOptions: {
-        header: () => <HeaderSearch />
+        header: <HeaderSearch />
       }
     },
-    Setting,
     Detail: {
       screen: Detail,
-      navigationOptions: {
-        header: null
-      }
+      navigationOptions: props => ({
+        header: <Header {...props} />
+      })
     }
   },
   {
+    headerMode: 'screen',
     transitionConfig: () => ({
       transitionSpec: 200,
       screenInterpolator:
