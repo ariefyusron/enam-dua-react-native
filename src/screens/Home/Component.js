@@ -37,7 +37,10 @@ class Home extends Component {
       <TouchableOpacity
         activeOpacity={1}
         onPress={() =>
-          this.props.navigation.navigate('Detail', { title: item.name })
+          this.props.navigation.navigate('Detail', {
+            id: item.id,
+            title: item.name
+          })
         }>
         <Image source={{ uri: item.image_url }} style={styles.image} />
         <View style={styles.desc}>
