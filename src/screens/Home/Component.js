@@ -12,6 +12,7 @@ import { connect } from 'react-redux';
 
 import styles from './styles';
 import { getData } from '../../redux/actions';
+import { KeyboardAvoidingView } from '../../components';
 
 class Home extends Component {
   constructor(props) {
@@ -51,20 +52,22 @@ class Home extends Component {
     const { home } = this.props;
     return (
       <View style={styles.container}>
-        <FlatList
-          keyboardShouldPersistTaps="handled"
-          data={home.data}
-          numColumns={2}
-          style={styles.flatList}
-          keyExtractor={(item, index) => index.toString()}
-          refreshControl={
-            <RefreshControl
-              refreshing={home.isLoading}
-              onRefresh={() => this.getData()}
-            />
-          }
-          renderItem={this.renderItem}
-        />
+        <KeyboardAvoidingView>
+          <FlatList
+            keyboardShouldPersistTaps="handled"
+            data={home.data}
+            numColumns={2}
+            style={styles.flatList}
+            keyExtractor={(item, index) => index.toString()}
+            refreshControl={
+              <RefreshControl
+                refreshing={home.isLoading}
+                onRefresh={() => this.getData()}
+              />
+            }
+            renderItem={this.renderItem}
+          />
+        </KeyboardAvoidingView>
       </View>
     );
   }
