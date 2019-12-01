@@ -5,7 +5,9 @@ import {
 } from '../actions';
 
 const initialState = {
-  data: {},
+  data: {
+    photos: []
+  },
   isLoading: false
 };
 
