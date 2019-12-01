@@ -1,8 +1,16 @@
-import { ADD_DATA, DELETE_DATA, HANDLE_SEARCH } from '../actions';
+import {
+  ADD_DATA,
+  DELETE_DATA,
+  HANDLE_SEARCH,
+  GET_DATA_PENDING,
+  GET_DATA_SUCCESS,
+  GET_DATA_ERROR
+} from '../actions';
 
 const initialState = {
   data: [],
-  search: ''
+  search: '',
+  isLoading: false
 };
 
 export default (state = initialState, action) => {
@@ -16,6 +24,12 @@ export default (state = initialState, action) => {
       };
     case HANDLE_SEARCH:
       return { ...state, search: action.payload };
+    case GET_DATA_PENDING:
+      return { ...state, isLoading: true };
+    case GET_DATA_SUCCESS:
+      return { ...state, isLoading: false, data: action.payload };
+    case GET_DATA_ERROR:
+      return { ...state, isLoading: false };
     default:
       return state;
   }

@@ -24,13 +24,15 @@ const Component = ({ home, ...props }) => (
           style={styles.textInput}
           placeholderTextColor="rgba(255,255,255,0.7)"
           value={home.search}
-          onChangeText={text => props.handleSearch(text)}
+          onChangeText={text =>
+            text === '' ? props.handleSearch() : props.handleSearch(text)
+          }
         />
         {home.search !== '' && (
           <TouchableOpacity
             style={styles.buttonClear}
             activeOpacity={0.5}
-            onPress={() => props.handleSearch('')}>
+            onPress={() => props.handleSearch()}>
             <Icon name="close" color="#FFF" size={25} />
           </TouchableOpacity>
         )}
