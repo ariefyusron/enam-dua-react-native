@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         data: state.data.filter(data => data !== action.payload)
       };
     case HANDLE_SEARCH:
-      return { ...state, search: action.payload };
+      return { ...state, search: action.payload, isLoading: true };
     case GET_DATA_PENDING:
       return { ...state, isLoading: true };
     case GET_DATA_SUCCESS:

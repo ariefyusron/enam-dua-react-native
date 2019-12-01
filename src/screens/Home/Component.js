@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import styles from './styles';
-import { handleSearch } from '../../redux/actions';
+import { getData } from '../../redux/actions';
 
 class Home extends Component {
   constructor(props) {
@@ -24,12 +24,7 @@ class Home extends Component {
   }
 
   getData() {
-    const { home } = this.props;
-    if (home.search === '') {
-      this.props.handleSearch();
-    } else {
-      this.props.handleSearch(home.search);
-    }
+    this.props.getData();
   }
 
   renderItem = ({ item }) => (
@@ -77,7 +72,7 @@ class Home extends Component {
 
 Home.propTypes = {
   navigation: PropTypes.object.isRequired,
-  handleSearch: PropTypes.func.isRequired,
+  getData: PropTypes.func.isRequired,
   home: PropTypes.object.isRequired
 };
 
@@ -86,7 +81,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  handleSearch
+  getData
 };
 
 export default connect(

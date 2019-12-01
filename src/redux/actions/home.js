@@ -16,24 +16,28 @@ export const deleteData = data => dispatch => {
   dispatch({ type: DELETE_DATA, payload: data });
 };
 
-export const handleSearch = (keyword = 'new%20york') => async dispatch => {
+export const handleSearch = keyword => async dispatch => {
   dispatch({
     type: HANDLE_SEARCH,
-    payload: keyword === 'new%20york' ? '' : keyword
+    payload: keyword
   });
-  dispatch({ type: GET_DATA_PENDING });
   clearTimeout(this.search);
   this.search = setTimeout(() => {
-    dispatch(getData(keyword));
+    dispatch(getData());
   }, 500);
 };
 
-export const getData = keyword => async (dispatch, getState) => {
+export const getData = () => async (dispatch, getState) => {
   try {
-    const { auth } = getState();
-    const response = await api.searchData(keyword, {
-      authorization: auth.token
-    });
+    dispatch({ type: GET_DATA_PENDING });
+
+    const { auth, home } = getState();
+    const response = await api.searchData(
+      home.search === '' ? 'new%20york' : home.search,
+      {
+        authorization: auth.token
+      }
+    );
 
     dispatch({ type: GET_DATA_SUCCESS, payload: response.businesses });
   } catch (error) {
